@@ -1,5 +1,8 @@
 package com.example.myfirstrestapp;
 
+import jakarta.persistence.Entity;
+
+
 public class Todo {
 
     private Integer id;
