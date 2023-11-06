@@ -8,10 +8,11 @@ import jakarta.persistence.Id;
 @Entity//damit sagen wir  hybernate erstelle  mir eine Tabelle
 public class Todo {
     @Id//das setzt id auf Primarykey
-    @GeneratedValue(strategy = GenerationType.AUTO)//autoincrement +1 des primary keys
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//autoincrement +1 des primary keys und für jede Tabelle seperat
     private Integer id;
     private String description;
     private boolean isDone;
+    private Integer userId;
 
     public void setId(Integer id){
         this.id=id;
@@ -36,4 +37,11 @@ public class Todo {
         return this.isDone;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 }

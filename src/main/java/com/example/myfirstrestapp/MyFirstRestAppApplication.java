@@ -10,5 +10,4 @@ public class MyFirstRestAppApplication {
 		SpringApplication.run(MyFirstRestAppApplication.class, args);
 		System.out.println("this is the main");
 	}
-
 }
