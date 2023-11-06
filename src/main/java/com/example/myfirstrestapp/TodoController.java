@@ -13,6 +13,9 @@ public class TodoController {
     @Autowired//Field Dependency-Injection damit injiziert spring intern eine Objekt
     private TodoRepository todoRepository;
 
+    @Autowired
+    private UserRepository  userRepository;
+
     @GetMapping("/todo")
     public ResponseEntity<String> get(@RequestParam(value = "id") int id) {
 
@@ -28,6 +31,16 @@ public class TodoController {
     public ResponseEntity<Iterable<Todo>>getAll(){
         Iterable<Todo>allTodosInDb=todoRepository.findAll();
         return new ResponseEntity<Iterable<Todo>>(allTodosInDb,HttpStatus.OK);
+    }
+    @GetMapping("/todo/allByUser")
+    public ResponseEntity<Iterable<Todo>>getAllByUser(@RequestHeader("api-secret")String secret){
+        System.out.println("secret: "+secret);
+        var userBySecret=userRepository.findBySecret(secret);
+        if(userBySecret.isPresent()){
+            Iterable<Todo>allTodosInDb=todoRepository.findAllByUserId(userBySecret.get().getId());
+            return new ResponseEntity<Iterable<Todo>>(allTodosInDb,HttpStatus.OK);
+        }
+        return new ResponseEntity("Invalid secret",HttpStatus.BAD_REQUEST);
     }
 
     @PostMapping("/todo")
